@@ -5,26 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pulse Service Masters — Lawn mowers & Garden Equipment</title>
   <style>
-    /* Basic page layout */
-    body{background:#f0f6f8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; color:#222}
-    .container{max-width:1100px;margin:0 auto;padding:20px}
+    body {
+      background:#f0f6f8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      margin:0; color:#222;
+    }
+    .container {max-width:1100px;margin:0 auto;padding:20px}
 
-    /* Logo area (keeps existing look) */
-    .brand{display:flex;align-items:center;gap:16px;padding:12px 0;align-items:center}
-    .brand div{line-height:1}
-    .brand img{height:64px}
+    /* Header */
+    .site-header {background:#00796b;color:white;padding:12px 0;}
+    .header-flex{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .brand img{height:64px;}
+    .brand-title .title{font-weight:700;color:white;font-size:20px;}
+    .brand-title .subtitle{font-size:12px;color:rgba(255,255,255,0.9);}
+    .main-nav .nav-list{display:flex;gap:16px;list-style:none;margin:0;padding:0;align-items:center;}
+    .main-nav a{color:white;padding:8px 12px;border-radius:6px;text-decoration:none;}
+    .main-nav a:hover{background:rgba(255,255,255,0.12);}
+    @media (max-width:700px){
+      .header-flex{flex-direction:column;align-items:flex-start;gap:8px;}
+      .main-nav .nav-list{flex-wrap:wrap;justify-content:center;}
+    }
 
-    /* Service description */
-    .hero{padding:12px 0}
-    .headline{font-size:20px;margin:6px 0}
-    .sub{color:#555;margin-bottom:12px}
+    /* Hero */
+    .hero{padding:16px 0;}
+    .headline{font-size:22px;font-weight:600;margin:6px 0;color:#004d40;}
+    .sub{color:#555;margin-bottom:16px;}
 
-    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-    .service{background:#ffffff;border-radius:8px;padding:12px;box-shadow:0 2px 6px rgba(0,0,0,0.06);border:1px solid #e6eef3}
-    .service h4{margin:0 0 6px 0;font-size:15px}
-    .service p{margin:0;color:#444;font-size:14px}
+    /* 🌿 Improved Services Grid */
+    .services{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:18px;
+      padding:10px 0;
+    }
+    .service{
+      background:#e8f5e9; /* soft green */
+      border:1px solid #c8e6c9;
+      border-radius:10px;
+      padding:16px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.05);
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .service:hover{
+      transform:translateY(-4px);
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    }
+    .service-item h4{
+      margin:0 0 6px 0;
+      font-size:16px;
+      color:#00695c;
+    }
+    .service p{
+      margin:0;
+      color:#333;
+      line-height:1.4;
+      font-size:14px;
+    }
 
-    /* Carousel (one product visible at a time, scrolls right-to-left) */
+    /* Carousel */
     .carousel-wrap{position:relative;margin-top:20px}
     .carousel{overflow:hidden;border-radius:10px;background:#ffffff;border:1px solid #e6eef3}
     .track{display:flex;transition:transform 600ms ease;will-change:transform}
@@ -34,91 +73,28 @@
     .prod-info{flex:1}
     .prod-info h3{margin:0 0 8px 0;font-size:20px}
     .prod-info p{margin:0 0 8px 0;color:#444}
-    .price{font-weight:700;margin-bottom:8px}
-    .warranty-toggle{display:flex;gap:8px}
-    .warranty-toggle button{padding:8px 12px;border-radius:6px;border:1px solid #ccc;background:#fff;cursor:pointer}
     .controls{position:absolute;left:12px;right:12px;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;pointer-events:none}
     .controls button{pointer-events:all;padding:8px 10px;border-radius:6px;border:none;background:rgba(255,255,255,0.9);box-shadow:0 1px 5px rgba(0,0,0,0.12);cursor:pointer}
-    .indicators{display:flex;gap:6px;justify-content:center;margin-top:10px}
-    .dot{width:10px;height:10px;border-radius:50%;background:#ddd}
-    .dot.active{background:#333}
 
-    /* Small screens adjustments */
     @media (max-width:600px){
       .prod-img{height:140px;flex:0 0 140px}
       .prod-info h3{font-size:18px}
     }
-  
-/* --- PSM1 color and homepage tweaks injected by assistant --- */
-.site-header, header, .nav, .navbar { background: #00796b !important; color: white !important; }
-footer { background: #004d40 !important; color: white !important; }
-.price, .price * { display: none !important; }
-/* ensure product links open products.html anchors if using relative paths */
-a.product-link[href^="#"] { /* nothing */ }
-
-
-/* Header layout: logo left, nav right */
-.header-flex{display:flex;align-items:center;justify-content:space-between;padding:8px 0;}
-.main-nav .nav-list{list-style:none;margin:0;padding:0;display:flex;gap:18px;align-items:center;}
-.main-nav a{display:inline-block;padding:8px 14px;border-radius:6px;text-decoration:none;font-weight:600;}
-/* menu background and text color (different from header) */
-.main-nav{background:transparent;padding:6px;border-radius:8px;}
-.main-nav a{background:#ffffffaa;color:#00796b;} /* white translucent background with psm green text */
-.main-nav a:hover{background:#e7f6f2;color:#004d40;}
-
-/* Ensure nav is on the same line as logo on small screens */
-@media (max-width:700px){ .header-flex{flex-direction:column;gap:10px} .main-nav .nav-list{flex-wrap:wrap;justify-content:center} }
-
-/* Different background colors for content blocks */
-.tagline-block{background:#e8f5e9;padding:18px;border-radius:8px;margin-bottom:12px;} /* light green */
-.lead-block{background:#e3f2fd;padding:16px;border-radius:8px;margin-bottom:12px;} /* light blue */
-.services .service-item{background:#fff3e0;padding:12px;border-radius:8px;margin:8px 0;} /* light orange */
-.services{padding:12px;border-radius:8px;margin-bottom:18px;}
-/* keep products scroller styling */
-.products-wrap{margin-top:8px;padding:10px;background:linear-gradient(90deg,#fff,#fbfbfb);border-radius:8px}
-.product{border:none;box-shadow:0 2px 6px rgba(0,0,0,0.08);}
-
-/* Ensure logo small on mobile */
-.brand img{height:56px}
-
-
-/* Alignment overrides injected */
-.header-flex{display:flex;align-items:center;justify-content:space-between;}
-.main-nav{margin-left:auto;}
-.brand img{height:64px;}
-.site-header{background:#00796b;padding:12px 0;color:white;}
-.main-nav a{color:white;padding:8px 12px;border-radius:6px;text-decoration:none;background:transparent;}
-.main-nav a:hover{background:rgba(255,255,255,0.12);}
-.brand-title .title{color:white;}
-
-
-/* Ensure logo and title visible and aligned */
-.header-flex{display:flex;align-items:center;justify-content:space-between;}
-.brand img{height:64px;max-height:72px;}
-.site-header{background:#00796b;padding:12px 0;color:white;}
-.main-nav a{color:white;padding:8px 12px;border-radius:6px;text-decoration:none;background:transparent;}
-.main-nav a:hover{background:rgba(255,255,255,0.12);}
-.brand-title .title{color:white;}
-.brand-title .subtitle{color:rgba(255,255,255,0.9);font-size:12px;}
-@media (max-width:700px){ .header-flex{flex-direction:column;align-items:flex-start;gap:8px;} .main-nav .nav-list{justify-content:flex-end} }
-
-</style>
+  </style>
 </head>
 <body>
 
-<header class="site-header" role="banner">
-  <div class="container header-flex" style="gap:12px;">
-    <div class="brand" style="display:flex;align-items:center;gap:12px;">
-      <a href="index.html" style="display:flex;align-items:center;">
-        <img src="images/logo.png" alt="Pulse Service Masters logo" style="height:64px;display:block;margin-right:10px;">
-      </a>
-      <div class="brand-title" style="line-height:1;">
-        <div class="title" style="font-weight:700;color:white;font-size:20px;">Pulse Service Masters</div>
-        <div class="subtitle" style="font-size:12px;color:rgba(255,255,255,0.9);margin-top:2px;">Sales • Servicing • Spare Parts</div>
+<header class="site-header">
+  <div class="container header-flex">
+    <div class="brand">
+      <a href="index.html"><img src="images/logo.png" alt="Pulse Service Masters logo"></a>
+      <div class="brand-title">
+        <div class="title">Pulse Service Masters</div>
+        <div class="subtitle">Sales • Servicing • Spare Parts</div>
       </div>
     </div>
     <nav class="main-nav" aria-label="Main navigation">
-      <ul class="nav-list" style="display:flex;gap:16px;list-style:none;margin:0;padding:0;align-items:center;">
+      <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -132,7 +108,7 @@ a.product-link[href^="#"] { /* nothing */ }
     <div class="headline">Your Trusted Partner for Lawn &amp; Garden Equipment</div>
     <div class="sub">We offer high-quality tools for your garden — sales, service &amp; support. Below are the core services we provide to keep your outdoor equipment running like new.</div>
 
-    <!-- ✅ Services list (cleaned up) -->
+    <!-- 🌿 Services Grid -->
     <div class="services">
       <div class="service">
         <div class="service-item"><h4>Sales of New &amp; Refurbished Equipment</h4></div>
@@ -148,6 +124,7 @@ a.product-link[href^="#"] { /* nothing */ }
       </div>
       <div class="service">
         <div class="service-item"><h4>Warranty Plans &amp; Extended Coverage</h4></div>
+        <p>Affordable warranty and maintenance packages to keep your equipment in top condition for years.</p>
       </div>
       <div class="service">
         <div class="service-item"><h4>Customer Support &amp; Aftercare</h4></div>
@@ -156,12 +133,12 @@ a.product-link[href^="#"] { /* nothing */ }
     </div>
   </section>
 
-  <!-- ✅ Existing carousel retained -->
+  <!-- Product Carousel -->
   <section class="carousel-wrap">
     <div class="carousel">
       <div class="track">
         <div class="slide"><a class="product-card" href="product-brushcutter-2stroke.html"><div class="prod-img"><img src="images/Brush_Cutter_-_2_stroke.jpg" alt="Brush cutter - 2 stroke" /></div><div class="prod-info"><h3>Brush cutter - 2 stroke</h3><p>High-power 2-stroke brush cutter suited for heavy vegetation. Requires petrol-oil mix (1:55).</p></div></a></div>
-        <div class="slide"><a class="product-card" href="product-brushcutter.html"><div class="prod-img"><img src="images/Brush_Cutter_-_4_stroke.jpg" alt="Brush cutter - 4 stroke" /></div><div class="prod-info"><h3>Brush cutter - 4 stroke</h3><p>The PSM- GX 35 brush cutter is a 4-stroke, petrol-powered gardening tool designed for efficient grass cutting, weeding, and light farming ta...</p></div></a></div>
+        <div class="slide"><a class="product-card" href="product-brushcutter.html"><div class="prod-img"><img src="images/Brush_Cutter_-_4_stroke.jpg" alt="Brush cutter - 4 stroke" /></div><div class="prod-info"><h3>Brush cutter - 4 stroke</h3><p>The PSM-GX35 4-stroke brush cutter offers efficient grass cutting and light farming performance with low noise and easy handling.</p></div></a></div>
         <div class="slide"><a class="product-card" href="product-chainsaw.html"><div class="prod-img"><img src="images/Chainsaw_-_PSM-Kawasaqi.jpg" alt="Chainsaw - PSM-Kawasaqi" /></div><div class="prod-info"><h3>Chainsaw - PSM-Kawasaqi</h3><p>Ideal for cutting logs, tree branches and small to medium trees. Built for durability; delivers high torque and cutting speed.</p></div></a></div>
         <div class="slide"><a class="product-card" href="product-hedge-trimmer.html"><div class="prod-img"><img src="images/Hedge_Trimmer_-_PSM_HT.jpg" alt="Hedge Trimmer - PSM HT" /></div><div class="prod-info"><h3>Hedge Trimmer - PSM HT</h3><p>Ideal for professional landscapers and gardeners. Compact yet powerful for tough trimming jobs. Reduces fatigue with low-vibration design.</p></div></a></div>
         <div class="slide"><a class="product-card" href="product-tiller.html"><div class="prod-img"><img src="images/Tiller_-_PSM_PPT.jpg" alt="Tiller – PSM PPT" /></div><div class="prod-info"><h3>Tiller – PSM PPT</h3><p>Robust tiller for soil tilling, plunging, weeding, and seedbed preparation.</p></div></a></div>
@@ -174,7 +151,7 @@ a.product-link[href^="#"] { /* nothing */ }
   </section>
 </div>
 
-<!-- ✅ Carousel script (unchanged) -->
+<!-- Carousel Script -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const track = document.querySelector('.carousel .track');
